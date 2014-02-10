@@ -6,7 +6,7 @@
 	<script type="text/javascript" src="KeyboardController.js"></script>
 
 	<link rel="stylesheet" type="text/css" href="escapeStyle.css" />
-	
+
 	<title>Escape</title>
 	<script type="text/coffeescript">
 		makeEntity = (x, y, speed, player) ->
@@ -71,11 +71,9 @@
 
 		drawHighscore = (board) ->
 			board.append "<form action=\"highscoreRegister.jsp\" method=\"post\" style=\"left:"+(winWidth*0.5-150)+"px; top:"+(winHeight*0.5-100)+"px;\">
-							<p><h2>Add to highscore</h2></p>
+							<p><h2>Game over!</h2></p>
 							<p>Score: "+score+"</p>
-							<p>Name: <input type=\"text\" name=\"navn\" value=\"\"><input type=\"submit\" value=\"apply\"></p>
-							<input id=\"scoreValue\" name=\"scoreValue\" type=\"hidden\" value=\""+score+"\">
-							<p><a href=\"index.htm\">Play again</a> <a href=\"highscore.jsp\">View highscore</a></p>
+							<p><a href=\"index.html\">Play again?</a></p>
 						</form>"
 
 		update = (enemies) ->
