@@ -1,0 +1,24 @@
+{
+  "name": "Escape",
+  "version": "1.0.0",
+  "description": "A game with infinite gameplay",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/teodoran/Escape.git"
+  },
+  "keywords": [
+    "game",
+    "javascript",
+    "coffescript"
+  ],
+  "author": "Teodor Ande Elstad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teodoran/Escape/issues"
+  },
+  "homepage": "https://github.com/teodoran/Escape"
+}
