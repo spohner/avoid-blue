@@ -1,13 +1,63 @@
 <!DOCTYPE HTML>
 <head>
-	<script type="text/javascript" src="node_modules/coffee-script-browser/index.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-	<script type="text/javascript" src="http://documentcloud.github.com/underscore/underscore-min.js"></script>
-	<script type="text/javascript" src="KeyboardController.js"></script>
-
-	<link rel="stylesheet" type="text/css" href="escapeStyle.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
 
 	<title>Escape</title>
+
+	<style type="text/css">
+		body {
+			font-family: Arial, sans-serif;
+			color: white;
+			background-color: black;
+			overflow: hidden;
+		}
+		form {position: absolute;}			
+		.player, .enemy{
+			width: 10px;
+			height: 10px;
+			position: absolute;
+		}
+		.player {background-color: #f44336;}
+		.enemy {background-color: #2196f3;}
+	</style>
+
+	<script type="text/javascript">
+		function KeyboardController(keys, repeat) {
+			var timers= {};
+
+			document.onkeydown= function(event) {
+				var key= (event || window.event).keyCode;
+				if (!(key in keys))
+					return true;
+				if (!(key in timers)) {
+					timers[key]= null;
+					keys[key]();
+					if (repeat!==0)
+						timers[key]= setInterval(keys[key], repeat);
+				}
+				return false;
+			};
+
+			document.onkeyup= function(event) {
+				var key= (event || window.event).keyCode;
+				if (key in timers) {
+					if (timers[key]!==null)
+						clearInterval(timers[key]);
+					delete timers[key];
+				}
+			};
+
+			window.onblur= function() {
+				for (key in timers)
+					if (timers[key]!==null)
+						clearInterval(timers[key]);
+				timers= {};
+			};
+		};
+    </script>
+
 	<script type="text/coffeescript">
 		makeEntity = (x, y, speed, player) ->
 			entity = 
@@ -72,8 +122,8 @@
 		drawHighscore = (board) ->
 			board.append "<form action=\"highscoreRegister.jsp\" method=\"post\" style=\"left:"+(winWidth*0.5-150)+"px; top:"+(winHeight*0.5-100)+"px;\">
 							<p><h2>Game over!</h2></p>
-							<p>Score: "+score+"</p>
-							<p><a href=\"index.html\">Play again?</a></p>
+							<p><h4>Score: "+score+"</h4></p>
+							<p><h3><a href=\"index.html\">Play again?</a></h3></p>
 						</form>"
 
 		update = (enemies) ->
@@ -119,7 +169,6 @@
 				setTimeout (-> gameLoop board), 24
 			else
 				drawHighscore board
-				$("#endText").text "Game over"
 
 		$ ->
 			initialize enemies, run
@@ -129,7 +178,6 @@
 	</script>
 </head>
 <body>
-	<span id="score"></span>
-	<span id="endText"></span>
+	<h4 id="score"></h4>
 	<div id="board"></div>
 </body>

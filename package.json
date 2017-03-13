@@ -2,7 +2,7 @@
   "name": "Escape",
   "version": "1.0.0",
   "description": "A game with infinite gameplay",
-  "main": "index.html",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
