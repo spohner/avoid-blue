@@ -14,4 +14,4 @@ http.createServer(function (req, res) {
     });
 }).listen(parseInt(port));
 
-console.log(`Escape running on localhost:${port}`);
+console.log(`Avoid blue! running on localhost:${port}`);

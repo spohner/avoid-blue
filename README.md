@@ -1,9 +1,9 @@
-Escape
-======
+Avoid blue!
+===========
 
-A coffeescript game using css and html for graphics. [Try it out!]()
+A coffeescript game using css and html for graphics. [Try it out!](http://avoid-blue.herokuapp.com/)
 
-![Screenshot of the game](https://github.com/teodoran/Escape/blob/master/escape.png)
+![Screenshot of the game](https://github.com/teodoran/Escape/blob/master/avoid-blue.png)
 
 How to play
 -----------
