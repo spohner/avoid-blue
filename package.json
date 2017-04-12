@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/teodoran/Escape/issues"
   },
-  "homepage": "https://github.com/teodoran/Escape"
+  "homepage": "https://github.com/teodoran/Escape",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "jsdom": "^9.12.0"
+  }
 }

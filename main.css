@@ -1,0 +1,14 @@
+		body {
+			font-family: Arial, sans-serif;
+			color: white;
+			background-color: black;
+			overflow: hidden;
+		}
+		form {position: absolute;}			
+		.player, .enemy{
+			width: 10px;
+			height: 10px;
+			position: absolute;
+		}
+		.player {background-color: #f44336;}
+		.enemy {background-color: #2196f3;}
