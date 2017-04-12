@@ -194,7 +194,6 @@ checkCollisions = function(enemies, player) {
 };
 
 gameLoop = function(board) {
-  $("#score").text(score += 1);
   if (score >= 300) {
     enemySpawnRate = 200;
   }
@@ -204,6 +203,9 @@ gameLoop = function(board) {
   checkCollisions(enemies, player);
   moveEnemies(enemies);
   drawScreen();
+  ctx.fillStyle = 'white';
+  ctx.font = '16pt sans-serif';
+  ctx.fillText(score += 1, 50,50);
   if (run) {
     return setTimeout((function() {
       return gameLoop();
