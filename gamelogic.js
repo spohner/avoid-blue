@@ -118,14 +118,16 @@ initialize = function(enemies) {
   return run = true;
 };
 
-drawScreen = function(board) {
+drawScreen = function() {
   var enemy, i, len;
-  board.children().remove();
+  ctx.clearRect(0,0,canvas.width, canvas.height);
   for (i = 0, len = enemies.length; i < len; i++) {
     enemy = enemies[i];
-    board.append("<div class=\"enemy\" style=\"left:" + enemy.x + "px; top:" + enemy.y + "px;\">");
-  }
-  return board.append("<div class=\"player\" style=\"left:" + player.x + "px; top:" + player.y + "px;\">");
+    ctx.fillStyle="purple";
+    ctx.fillRect(enemy.x, enemy.y, 10,10);
+}
+  ctx.fillStyle="green";
+  ctx.fillRect(player.x, player.y, 10, 10);
 };
 
 drawHighscore = function(board) {
@@ -201,18 +203,22 @@ gameLoop = function(board) {
   }
   checkCollisions(enemies, player);
   moveEnemies(enemies);
-  drawScreen(board);
+  drawScreen();
   if (run) {
     return setTimeout((function() {
-      return gameLoop(board);
+      return gameLoop();
     }), 24);
   } else {
-    return drawHighscore(board);
+    return drawHighscore($("#board"));
   }
 };
 
 $(function() {
+  var canvas = document.getElementById('canvas');
+  canvas.width = winWidth;
+  canvas.height = winHeight;
+  ctx = canvas.getContext('2d');
   initialize(enemies, run);
   update(enemies);
-  return gameLoop($("#board"));
+  return gameLoop();
 });
