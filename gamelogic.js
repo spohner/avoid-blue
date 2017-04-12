@@ -124,14 +124,18 @@ drawScreen = function() {
   for (i = 0, len = enemies.length; i < len; i++) {
     enemy = enemies[i];
     ctx.fillStyle="purple";
-    ctx.fillRect(enemy.x, enemy.y, 10,10);
+    ctx.beginPath();
+    ctx.arc(enemy.x, enemy.y, 5, 0, 2*Math.PI, false);
+    ctx.fill();
 }
   ctx.fillStyle="green";
-  ctx.fillRect(player.x, player.y, 10, 10);
+  ctx.beginPath();
+  ctx.arc(player.x, player.y, 5, 0, 2*Math.PI, false);
+  ctx.fill();
 };
 
-drawHighscore = function(board) {
-  return board.append("<form action=\"highscoreRegister.jsp\" method=\"post\" style=\"left:" + (winWidth * 0.5 - 150) + "px; top:" + (winHeight * 0.5 - 100) + "px;\"> <p><h2>Game over!</h2></p> <p><h4>Score: " + score + "</h4></p> <p><h3><a href=\"index.html\">Play again?</a></h3></p> </form>");
+drawHighscore = function() {
+  return $("#board").append("<form action=\"highscoreRegister.jsp\" method=\"post\" style=\"left:" + (winWidth * 0.5 - 150) + "px; top:" + (winHeight * 0.5 - 100) + "px;\"> <p><h2>Game over!</h2></p> <p><h4>Score: " + score + "</h4></p> <p><h3><a href=\"index.html\">Play again?</a></h3></p> </form>");
 };
 
 update = function(enemies) {
@@ -211,7 +215,7 @@ gameLoop = function(board) {
       return gameLoop();
     }), 24);
   } else {
-    return drawHighscore($("#board"));
+    return drawHighscore();
   }
 };
 
