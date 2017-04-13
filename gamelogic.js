@@ -135,7 +135,8 @@ drawScreen = function() {
 };
 
 drawHighscore = function() {
-  return $("#board").append("<form action=\"highscoreRegister.jsp\" method=\"post\" style=\"left:" + (winWidth * 0.5 - 150) + "px; top:" + (winHeight * 0.5 - 100) + "px;\"> <p><h2>Game over!</h2></p> <p><h4>Score: " + score + "</h4></p> <p><h3><a href=\"index.html\">Play again?</a></h3></p> </form>");
+  document.getElementById('score').innerHTML = score;
+  document.getElementById('scoreBoard').hidden = false;
 };
 
 update = function(enemies) {
@@ -219,7 +220,7 @@ gameLoop = function(board) {
   }
 };
 
-$(function() {
+(function() {
   var canvas = document.getElementById('canvas');
   canvas.width = winWidth;
   canvas.height = winHeight;
@@ -227,4 +228,4 @@ $(function() {
   initialize(enemies, run);
   update(enemies);
   return gameLoop();
-});
+})();
