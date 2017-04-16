@@ -1,39 +1,39 @@
-		function KeyboardController(keys, repeat) {
-			var timers= {};
+function KeyboardController(keys, repeat) {
+  var timers = {};
 
-			document.onkeydown= function(event) {
-				var key= (event || window.event).keyCode;
-				if (!(key in keys))
-					return true;
-				if (!(key in timers)) {
-					timers[key]= null;
-					keys[key]();
-					if (repeat!==0)
-						timers[key]= setInterval(keys[key], repeat);
-				}
-				return false;
-			};
+  document.onkeydown = function (event) {
+    var key = (event || window.event).keyCode;
+    if (!(key in keys))
+      return true;
+    if (!(key in timers)) {
+      timers[key] = null;
+      keys[key]();
+      if (repeat !== 0)
+        timers[key] = setInterval(keys[key], repeat);
+    }
+    return false;
+  };
 
-			document.onkeyup= function(event) {
-				var key= (event || window.event).keyCode;
-				if (key in timers) {
-					if (timers[key]!==null)
-						clearInterval(timers[key]);
-					delete timers[key];
-				}
-			};
+  document.onkeyup = function (event) {
+    var key = (event || window.event).keyCode;
+    if (key in timers) {
+      if (timers[key] !== null)
+        clearInterval(timers[key]);
+      delete timers[key];
+    }
+  };
 
-			window.onblur= function() {
-				for (key in timers)
-					if (timers[key]!==null)
-						clearInterval(timers[key]);
-				timers= {};
-			};
-		};
+  window.onblur = function () {
+    for (key in timers)
+      if (timers[key] !== null)
+        clearInterval(timers[key]);
+    timers = {};
+  };
+};
 
 var checkCollisions, drawHighscore, drawScreen, enemies, enemySpawnRate, gameLoop, hasCollided, initialize, makeEntity, moveEnemies, moveEntity, movePlayer, player, playerHitWall, run, score, setRandomEnemyStart, spawnEnemy, update, winHeight, winWidth;
 
-makeEntity = function(x, y, speed, player) {
+makeEntity = function (x, y, speed, player) {
   var entity;
   return entity = {
     x: x,
@@ -56,13 +56,13 @@ enemies = [];
 
 run = false;
 
-spawnEnemy = function(enemies) {
+spawnEnemy = function (enemies) {
   var newEnemy;
   newEnemy = makeEntity(0, 0, score);
   return enemies[enemies.length] = setRandomEnemyStart(newEnemy);
 };
 
-setRandomEnemyStart = function(enemy) {
+setRandomEnemyStart = function (enemy) {
   var side;
   side = Math.floor(Math.random() * 4);
   switch (side) {
@@ -85,7 +85,7 @@ setRandomEnemyStart = function(enemy) {
   return enemy;
 };
 
-movePlayer = function(keyCode) {
+movePlayer = function (keyCode) {
   switch (keyCode) {
     case 37:
       return moveEntity(player, -player.speed, 0);
@@ -98,7 +98,7 @@ movePlayer = function(keyCode) {
   }
 };
 
-moveEnemies = function(enemies) {
+moveEnemies = function (enemies) {
   var enemy, i, len, results;
   results = [];
   for (i = 0, len = enemies.length; i < len; i++) {
@@ -108,55 +108,55 @@ moveEnemies = function(enemies) {
   return results;
 };
 
-moveEntity = function(entity, diffX, diffY) {
+moveEntity = function (entity, diffX, diffY) {
   entity.x += diffX;
   return entity.y += diffY;
 };
 
-initialize = function(enemies) {
+initialize = function (enemies) {
   spawnEnemy(enemies, winWidth, winHeight);
   return run = true;
 };
 
-drawScreen = function() {
+drawScreen = function () {
   var enemy, i, len;
-  ctx.clearRect(0,0,canvas.width, canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   for (i = 0, len = enemies.length; i < len; i++) {
     enemy = enemies[i];
-    ctx.fillStyle="purple";
+    ctx.fillStyle = "purple";
     ctx.beginPath();
-    ctx.arc(enemy.x, enemy.y, 5, 0, 2*Math.PI, false);
+    ctx.arc(enemy.x, enemy.y, 5, 0, 2 * Math.PI, false);
     ctx.fill();
-}
-  ctx.fillStyle="green";
+  }
+  ctx.fillStyle = "green";
   ctx.beginPath();
-  ctx.arc(player.x, player.y, 5, 0, 2*Math.PI, false);
+  ctx.arc(player.x, player.y, 5, 0, 2 * Math.PI, false);
   ctx.fill();
 };
 
-drawHighscore = function() {
+drawHighscore = function () {
   document.getElementById('score').innerHTML = score;
   document.getElementById('scoreBoard').hidden = false;
 };
 
-update = function(enemies) {
+update = function (enemies) {
   return KeyboardController({
-    37: (function() {
+    37: (function () {
       return movePlayer(37);
     }),
-    38: (function() {
+    38: (function () {
       return movePlayer(38);
     }),
-    39: (function() {
+    39: (function () {
       return movePlayer(39);
     }),
-    40: (function() {
+    40: (function () {
       return movePlayer(40);
     })
   }, 24);
 };
 
-hasCollided = function(enemy, player) {
+hasCollided = function (enemy, player) {
   var diffX, diffY, hasNotCollidedX, hasNotCollidedY;
   diffX = player.x - enemy.x;
   diffY = player.y - enemy.y;
@@ -165,11 +165,11 @@ hasCollided = function(enemy, player) {
   return hasNotCollidedX && hasNotCollidedY;
 };
 
-playerHitWall = function(player) {
+playerHitWall = function (player) {
   return player.x <= 0 || player.y <= 0 || player.x >= winWidth || player.y >= winHeight;
 };
 
-checkCollisions = function(enemies, player) {
+checkCollisions = function (enemies, player) {
   var enemy, i, len, otherEnemy, results;
   if (playerHitWall(player)) {
     run = false;
@@ -180,7 +180,7 @@ checkCollisions = function(enemies, player) {
     if (hasCollided(player, enemy)) {
       run = false;
     }
-    results.push((function() {
+    results.push((function () {
       var j, len1, results1;
       results1 = [];
       for (j = 0, len1 = enemies.length; j < len1; j++) {
@@ -198,7 +198,7 @@ checkCollisions = function(enemies, player) {
   return results;
 };
 
-gameLoop = function(board) {
+gameLoop = function (board) {
   if (score >= 300) {
     enemySpawnRate = 200;
   }
@@ -210,9 +210,9 @@ gameLoop = function(board) {
   drawScreen();
   ctx.fillStyle = 'white';
   ctx.font = '16pt sans-serif';
-  ctx.fillText(score += 1, 50,50);
+  ctx.fillText(score += 1, 50, 50);
   if (run) {
-    return setTimeout((function() {
+    return setTimeout((function () {
       return gameLoop();
     }), 24);
   } else {
@@ -220,7 +220,7 @@ gameLoop = function(board) {
   }
 };
 
-(function() {
+(function () {
   var canvas = document.getElementById('canvas');
   canvas.width = winWidth;
   canvas.height = winHeight;
